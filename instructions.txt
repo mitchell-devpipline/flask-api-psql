@@ -1,0 +1,8 @@
+HOMEWORK FOR THIS WEEKEND:
+Currently your database doesn't have a foreign key relationship set up to relate the Users and Organizations Tables. FIX THAT!
+(You will have to drop your database and create it again. GET USED TO DOING THAT. We'll be doing it a lot.)
+After that's done, finish your USER CRUDDA Functions and Routes
+THEN do the same thing for the Organizations table!
+
+you can use this as your reference to understand how the routes work. DO NOT just copy and paste my code.
+Do your best to understand how each function works!
