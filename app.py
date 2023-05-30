@@ -33,6 +33,50 @@ def create_all_tables():
     conn.commit()
 
 
+@app.route('/org/update/<id>', methods=["PUT"])
+def update_org_by_id(id):
+    cursor.execute(
+        "SELECT org_id, name, state, active FROM Organizations WHERE org_id =%s;",
+        [id])
+    result = cursor.fetchone()
+
+    if not result:
+        return jsonify('Org does not exist'), 404
+    else:
+
+        result_dict = {
+            "org_id": result[0],
+            "name": result[1],
+            "state": result[2],
+            "active": result[3]
+        }
+
+    post_data = request.form if request.form else request.json
+
+    for key, val in post_data.copy().items():
+        if not val:
+            post_data.pop(key)
+
+    result_dict.update(post_data)
+
+    cursor.execute(
+        '''UPDATE Organizations SET 
+        name = %s,  
+        state= %s, 
+        active= %s 
+        
+        WHERE org_id = %s
+    ;''',
+        [
+            result_dict['name'],
+            result_dict['state'],
+            result_dict['active'],
+            result_dict['org_id']
+        ])
+    conn.commit()
+    return jsonify('Organization has been updated')
+
+
 @app.route('/user/add', methods=['POST'])
 def user_add():
     post_data = request.form if request.form else request.json
